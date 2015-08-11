@@ -8,10 +8,10 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.ldap.userdetails.UserDetailsContextMapper;
 
-public class CustomInetOrgPersonContextMapper implements UserDetailsContextMapper {
-	
+public class LdapAccountContextMapper implements UserDetailsContextMapper {
+
 	private UserGrantedAuthoritiesMapper userAuthoritiesMapper;
-	
+
 	private Collection<? extends GrantedAuthority> getUserAuthorities(DirContextOperations ctx, String username, Collection<? extends GrantedAuthority> authorities) {
 		if (userAuthoritiesMapper == null) {
 			return authorities;
@@ -20,18 +20,20 @@ public class CustomInetOrgPersonContextMapper implements UserDetailsContextMappe
 		}
 	}
 	
+	@Override
 	public UserDetails mapUserFromContext(DirContextOperations ctx, String username, Collection<? extends GrantedAuthority> authorities) {
 		final Collection<? extends GrantedAuthority> augmented = getUserAuthorities(ctx, username, authorities);
 		
-		CustomInetOrgPerson.Essence p = new CustomInetOrgPerson.Essence(ctx);
+		LdapAccountDetails.Essence p = new LdapAccountDetails.Essence(ctx);
 		p.setUsername(username);
 		p.setAuthorities(augmented);
 		
 		return p.createUserDetails();
 	}
 
+	@Override
 	public void mapUserToContext(UserDetails user, DirContextAdapter ctx) {
-		CustomInetOrgPerson p = (CustomInetOrgPerson) user;
+		LdapAccountDetails p = (LdapAccountDetails) user;
 		p.populateContext(ctx);
 	}
 

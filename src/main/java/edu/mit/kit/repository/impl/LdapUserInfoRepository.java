@@ -10,9 +10,8 @@ import org.mitre.openid.connect.repository.UserInfoRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.ldap.userdetails.InetOrgPerson;
 
-import ca.uhnresearch.pughlab.authentication.CustomInetOrgPerson;
+import ca.uhnresearch.pughlab.authentication.LdapAccountDetails;
 
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
@@ -35,19 +34,39 @@ public class LdapUserInfoRepository implements UserInfoRepository {
 			log.info("Loading user info for {}", username);
 			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			
-			if (principal instanceof CustomInetOrgPerson) {
-				CustomInetOrgPerson person = (CustomInetOrgPerson) principal;
+			if (principal instanceof LdapAccountDetails) {
+				LdapAccountDetails person = (LdapAccountDetails) principal;
 				UserInfo ui = new DefaultUserInfo();
 				if (person.getUsername().equals(username)) {
 					ui.setPreferredUsername(person.getUsername());
 					ui.setSub(person.getUsername());
-					ui.setEmail(person.getMail());
-					ui.setEmailVerified(false);
-					ui.setPhoneNumber(person.getTelephoneNumber());
-					ui.setName(person.getDisplayName());
-					ui.setGivenName(person.getGivenName());
-					ui.setFamilyName(person.getSn());
-					ui.setMiddleName(person.getInitials());
+					
+					final String mail = person.getAttributeAsString("mail");
+					if (mail != null) {
+						ui.setEmail(mail);
+						ui.setEmailVerified(false);
+					}
+					
+					final String displayName = person.getAttributeAsString("displayName");
+					if (displayName != null) {
+						ui.setName(displayName);
+					}
+					
+					final String givenName = person.getAttributeAsString("givenName");
+					if (givenName != null) {
+						ui.setGivenName(givenName);
+					}
+
+					final String familyName = person.getAttributeAsString("sn");
+					if (familyName != null) {
+						ui.setFamilyName(familyName);
+					}
+
+					final String initials = person.getAttributeAsString("initials");
+					if (initials != null) {
+						ui.setMiddleName(initials);
+					}
+
 					return ui;
 				}
 			}
