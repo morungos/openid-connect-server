@@ -6,7 +6,7 @@
 
 <Configure id="Server" class="org.eclipse.jetty.server.Server">
 
-	<!-- 
+    <!-- 
 	<Call class="org.eclipse.jetty.util.log.Log" name="getRootLogger">
 		<Call id="logMgr" class="java.util.logging.LogManager" name="getLogManager">
 			<Call name="readConfiguration">
@@ -18,6 +18,19 @@
 			</Call>
 		</Call>
 	</Call>
-	 -->
+     -->
 	
+    <!-- HSQLDB -->
+    <New id="datasource" class="org.eclipse.jetty.plus.jndi.Resource">
+        <Arg>jdbc/OIDC</Arg>
+        <Arg>
+            <New class="org.apache.commons.dbcp.BasicDataSource">
+                <Set name="driverClassName">org.hsqldb.jdbc.JDBCDriver</Set>
+                <Set name="url">jdbc:hsqldb:file:oidc_test;default_schema=true;shutdown=true</Set>
+                <Set name="username">sa</Set>
+                <Set name="password"></Set>
+            </New>
+        </Arg>
+    </New>
+    
 </Configure>
