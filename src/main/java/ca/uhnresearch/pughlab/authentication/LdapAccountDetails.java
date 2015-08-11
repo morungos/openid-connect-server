@@ -18,19 +18,13 @@ package ca.uhnresearch.pughlab.authentication;
 import org.springframework.security.core.SpringSecurityCoreVersion;
 import org.springframework.ldap.core.DirContextAdapter;
 import org.springframework.ldap.core.DirContextOperations;
-import org.springframework.security.ldap.LdapUtils;
 import org.springframework.security.ldap.userdetails.LdapUserDetails;
 import org.springframework.security.ldap.userdetails.LdapUserDetailsImpl;
 
 import java.util.Enumeration;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 import javax.naming.NamingException;
 import javax.naming.directory.Attribute;
-import javax.naming.directory.Attributes;
 import javax.naming.directory.BasicAttributes;
 
 /**
