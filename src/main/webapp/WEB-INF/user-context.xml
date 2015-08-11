@@ -37,6 +37,13 @@
 	</bean>
 
 	<bean id="personContextMapper" class="ca.uhnresearch.pughlab.authentication.CustomInetOrgPersonContextMapper">
+        <property name="userAuthoritiesMapper" ref="userAuthoritiesMapper" />
+    </bean>
+    
+    <!-- This bean allows individual usernames to be set up as admin users. It's a useful technique when
+         rights need to be assigned outside whatever we get back from LDAP/AD. However, it's probably better
+         to use a traditional GrantedAuthoritiesMapper on each LdapAuthenticationProvider. -->
+    <bean id="userAuthoritiesMapper" class="ca.uhnresearch.pughlab.authentication.SimpleUserGrantedAuthoritiesMapper">
         <property name="adminUsers">
             <util:set>
                 <value>stuartw</value>
