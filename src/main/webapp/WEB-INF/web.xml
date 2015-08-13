@@ -78,6 +78,12 @@
         <location>/error</location>
     </error-page>
     
+    <session-config>
+	    <cookie-config>
+	        <name>OIDCSESSIONID</name>
+	    </cookie-config>
+    </session-config>
+    
     <!-- Added JNDI for the primary database -->
     <resource-ref>
         <description>Primary database</description>
