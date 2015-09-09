@@ -1,7 +1,9 @@
 package ca.uhnresearch.pughlab.authentication;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.ldap.core.DirContextOperations;
@@ -41,4 +43,13 @@ public class SimpleUserGrantedAuthoritiesMapper implements UserGrantedAuthoritie
 		this.adminUsers = adminUsers;
 	}
 
+	/**
+	 * Sets the list of admin users as a single string. This is easier for externalized
+	 * configuration, as it can be passed from an environment variable. 
+	 */
+	public void setAdminUserList(String adminUsers) {
+		String[] names = adminUsers.trim().split("\\s*#\\s*");
+		List<String> users = Arrays.asList(names);
+		setAdminUsers(new HashSet<String>(users));
+	}
 }

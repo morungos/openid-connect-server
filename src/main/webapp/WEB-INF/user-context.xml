@@ -45,11 +45,7 @@
          to use a traditional GrantedAuthoritiesMapper on each LdapAuthenticationProvider. -->
          
     <bean id="userAuthoritiesMapper" class="ca.uhnresearch.pughlab.authentication.SimpleUserGrantedAuthoritiesMapper">
-        <property name="adminUsers">
-            <util:set>
-                <value>stuartw</value>
-            </util:set>
-        </property>
+        <property name="adminUserList" value="${OIDC_ADMIN_USERS}" />
     </bean>
 
 	<bean id="researchAuthProvider" class="org.springframework.security.ldap.authentication.ad.ActiveDirectoryLdapAuthenticationProvider">

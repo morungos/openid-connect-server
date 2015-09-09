@@ -119,7 +119,13 @@
  						<allowDuplicateFragmentNames>true</allowDuplicateFragmentNames>
                     </webApp>
 					<webXml>src/main/webapp/WEB-INF/web.xml</webXml>
-                    <jettyXml>src/main/etc/jetty.xml,src/main/etc/jetty-webapp.xml</jettyXml>					
+                    <jettyXml>src/main/etc/jetty.xml,src/main/etc/jetty-webapp.xml</jettyXml>
+                    <systemProperties>
+                    	<systemProperty>
+				        	<name>OIDC_ADMIN_USERS</name>
+				        	<value>stuartw</value>
+				        </systemProperty>
+                    </systemProperties>				
               	</configuration>
                 <dependencies>
                     <dependency>
