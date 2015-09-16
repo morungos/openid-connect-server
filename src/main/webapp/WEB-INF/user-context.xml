@@ -67,7 +67,7 @@
         <security:authentication-provider ref="corporateAuthProvider" />
     </security:authentication-manager>
 
-	<bean id="ldapUserInfoRepository" primary="true" class="edu.mit.kit.repository.impl.LdapUserInfoRepository">
+	<bean id="ldapUserInfoRepository" primary="true" class="ca.uhnresearch.pughlab.authentication.LdapUserInfoRepository">
 	</bean>
 
 	<!-- end LDAP -->
