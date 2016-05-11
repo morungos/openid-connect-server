@@ -48,24 +48,7 @@
         <property name="adminUserList" value="${OIDC_ADMIN_USERS}" />
     </bean>
 
-	<bean id="researchAuthProvider" class="org.springframework.security.ldap.authentication.ad.ActiveDirectoryLdapAuthenticationProvider">
-		<constructor-arg value="ads.uhnresearch.ca" />
-		<constructor-arg value="ldap://192.168.198.100" />
-		<property name="userDetailsContextMapper" ref="ldapContextMapper" />
-	</bean>
-
-	<bean id="corporateAuthProvider" class="org.springframework.security.ldap.authentication.ad.ActiveDirectoryLdapAuthenticationProvider">
-		<constructor-arg value="uhn.ca" />
-		<constructor-arg value="ldap://142.224.16.52" />
-		<property name="userDetailsContextMapper" ref="ldapContextMapper" />
-	</bean>
-
     <bean id="customAuthoritiesMapper" class="ca.uhnresearch.pughlab.authentication.CustomAuthoritiesMapper"></bean>
-
-	<security:authentication-manager alias="authenticationManager">
-        <security:authentication-provider ref="researchAuthProvider" />
-        <security:authentication-provider ref="corporateAuthProvider" />
-    </security:authentication-manager>
 
 	<bean id="ldapUserInfoRepository" primary="true" class="ca.uhnresearch.pughlab.authentication.LdapUserInfoRepository">
 	</bean>
