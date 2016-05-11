@@ -43,6 +43,8 @@
     <New id="webapp" class="org.eclipse.jetty.webapp.WebAppContext">
 		<Set name="contextPath">/</Set>
 		
+        <Set name="overrideDescriptor">file://<SystemProperty name="user.dir" />/src/main/etc/override-web.xml</Set>
+
 		<!-- The scratch directory -->
 		
 		<New class="java.io.File">
@@ -84,7 +86,7 @@
 		</Call>
 	
 		<Call name="setWar">
-			<Arg>/Users/stuartw/git/openid-connect-server/target/openid-connect-server-1.0.0-SNAPSHOT.war</Arg>
+			<Arg>/Users/stuartw/git/openid-connect-server/target/openid-connect-server-1.0.0-RC1.war</Arg>
 		</Call>
 				
 		<!-- Add the JSP initializer -->

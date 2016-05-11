@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="
+	    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+
+	<bean id="configBean" class="org.mitre.openid.connect.config.ConfigurationPropertiesBean">
+		<property name="issuer" value="http://localhost:8080/" />
+ 		<property name="logoImageUrl" value="resources/images/full_uhn_logo.png" />
+ 		<property name="topbarTitle" value="UHN OpenID Connect Server" />
+	</bean>
+	
+    <bean id="userAuthoritiesMapper" class="ca.uhnresearch.pughlab.authentication.SimpleUserGrantedAuthoritiesMapper">
+        <property name="adminUserList" value="stuartw" />
+    </bean>
+
+	<bean id="researchAuthProvider" class="org.springframework.security.ldap.authentication.ad.ActiveDirectoryLdapAuthenticationProvider">
+		<constructor-arg value="ads.uhnresearch.ca" />
+		<constructor-arg value="ldap://192.168.198.100" />
+		<property name="userDetailsContextMapper" ref="ldapContextMapper" />
+	</bean>
+
+	<bean id="corporateAuthProvider" class="org.springframework.security.ldap.authentication.ad.ActiveDirectoryLdapAuthenticationProvider">
+		<constructor-arg value="uhn.ca" />
+		<constructor-arg value="ldap://142.224.16.52" />
+		<property name="userDetailsContextMapper" ref="ldapContextMapper" />
+	</bean>
+
+	<bean id="rmpAuthProvider" class="org.springframework.security.ldap.authentication.ad.ActiveDirectoryLdapAuthenticationProvider">
+		<constructor-arg value="rmpuhn.ca" />
+		<constructor-arg value="ldap://142.224.244.137" />
+		<property name="userDetailsContextMapper" ref="ldapContextMapper" />
+	</bean>
+
+	<bean id="partnersAuthProvider" class="org.springframework.security.ldap.authentication.ad.ActiveDirectoryLdapAuthenticationProvider">
+		<constructor-arg value="partners.uhn.ca" />
+		<constructor-arg value="ldap://142.224.135.81" />
+		<property name="userDetailsContextMapper" ref="ldapContextMapper" />
+	</bean>
+
+	<security:authentication-manager alias="authenticationManager">
+        <security:authentication-provider ref="researchAuthProvider" />
+        <security:authentication-provider ref="corporateAuthProvider" />
+        <security:authentication-provider ref="rmpAuthProvider" />
+        <security:authentication-provider ref="partnersAuthProvider" />
+    </security:authentication-manager>
+    
+</beans>

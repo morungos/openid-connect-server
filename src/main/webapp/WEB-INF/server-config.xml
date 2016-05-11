@@ -29,7 +29,7 @@
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd">
 
 	<bean id="configBean" class="org.mitre.openid.connect.config.ConfigurationPropertiesBean">
-		<property name="issuer" value="http://localhost:8080/" />
+		<property name="issuer" value="${oidc.issuer}" />
  		<property name="logoImageUrl" value="resources/images/full_uhn_logo.png" />
  		<property name="topbarTitle" value="UHN OpenID Connect Server" />
 	</bean>
