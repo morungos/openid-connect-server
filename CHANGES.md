@@ -1,6 +1,11 @@
 ## Revision history
 
 
+### Version 1.0.2 - May 11th 2016
+
+ * Improved externalization of the OIDC_ISSUER. Resolves #4
+
+
 ### Version 1.0.1 - May 11th 2016
 
  * Improved externalization for LDAP. Resolves #4
