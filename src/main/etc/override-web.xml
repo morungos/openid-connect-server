@@ -8,7 +8,7 @@
         <param-name>contextConfigLocation</param-name>
         <param-value>
             /WEB-INF/application-context.xml
-            file:///Users/stuartw/git/openid-connect-server/src/main/etc/configuration.xml
+            file:///Users/stuart/git/openid-connect-server/src/main/etc/configuration.xml
         </param-value>
     </context-param>
 
