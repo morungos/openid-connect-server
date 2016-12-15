@@ -22,24 +22,6 @@
 		<property name="userDetailsContextMapper" ref="ldapContextMapper" />
 	</bean>
 
-	<bean id="corporateAuthProvider" class="org.springframework.security.ldap.authentication.ad.ActiveDirectoryLdapAuthenticationProvider">
-		<constructor-arg value="uhn.ca" />
-		<constructor-arg value="ldap://142.224.16.52" />
-		<property name="userDetailsContextMapper" ref="ldapContextMapper" />
-	</bean>
-
-	<bean id="rmpAuthProvider" class="org.springframework.security.ldap.authentication.ad.ActiveDirectoryLdapAuthenticationProvider">
-		<constructor-arg value="rmpuhn.ca" />
-		<constructor-arg value="ldap://142.224.244.137" />
-		<property name="userDetailsContextMapper" ref="ldapContextMapper" />
-	</bean>
-
-	<bean id="partnersAuthProvider" class="org.springframework.security.ldap.authentication.ad.ActiveDirectoryLdapAuthenticationProvider">
-		<constructor-arg value="partners.uhn.ca" />
-		<constructor-arg value="ldap://142.224.135.81" />
-		<property name="userDetailsContextMapper" ref="ldapContextMapper" />
-	</bean>
-	
 	<bean id="adminAuthProvider" class="ca.uhnresearch.pughlab.authentication.AdministrationAuthenticationProvider">
 		<constructor-arg value="stuart" />
 		<constructor-arg value="$2a$05$Zweqp6D1/x8hH0VDbHTrWuJiVmcRxGrK3ImO5S53OV7aeTgrwK6Wm" />
@@ -48,9 +30,6 @@
 	<security:authentication-manager alias="authenticationManager">
         <security:authentication-provider ref="adminAuthProvider" />
         <security:authentication-provider ref="researchAuthProvider" />
-        <security:authentication-provider ref="corporateAuthProvider" />
-        <security:authentication-provider ref="rmpAuthProvider" />
-        <security:authentication-provider ref="partnersAuthProvider" />
     </security:authentication-manager>
     
 </beans>
