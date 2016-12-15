@@ -87,23 +87,16 @@ public class LdapUserInfoRepository implements UserInfoRepository {
 	 * @param value
 	 * @return
 	 */
-//	private UserInfo findOrSave(TypedQuery<DefaultUserInfo> query, String key, String value) {
-//		UserInfo result = getSingleResult(query.getResultList());
-//		if (result != null) {
-//			return result;
-//		}
-//		return null;
+
+//	@Override
+//	@Transactional
+//	public UserInfo getBySubject(String sub) {
+//		log.info("getBySubject for {}", sub);
+//
+//		TypedQuery<DefaultUserInfo> query = manager.createNamedQuery("DefaultUserInfo.getBySubject", DefaultUserInfo.class);
+//		query.setParameter("sub", sub);
+//		return JpaUtil.getSingleResult(query.getResultList());
 //	}
-
-	@Override
-	@Transactional
-	public UserInfo getBySubject(String sub) {
-		log.info("getBySubject for {}", sub);
-
-		TypedQuery<DefaultUserInfo> query = manager.createNamedQuery("DefaultUserInfo.getBySubject", DefaultUserInfo.class);
-		query.setParameter("sub", sub);
-		return JpaUtil.getSingleResult(query.getResultList());
-	}
 
 	/**
 	 * Get a single UserInfo object by its username
@@ -135,36 +128,9 @@ public class LdapUserInfoRepository implements UserInfoRepository {
 	}
 
 	@Override
-	@Transactional
-	public UserInfo save(UserInfo userInfo) {
-		log.info("save for {}", userInfo.getPreferredUsername());
-
-		DefaultUserInfo dui = (DefaultUserInfo)userInfo;
-		return JpaUtil.saveOrUpdate(dui.getId(), manager, dui);
-	}
-
-	@Override
-	@Transactional
-	public void remove(UserInfo userInfo) {
-		log.info("remove for {}", userInfo.getPreferredUsername());
-		DefaultUserInfo dui = (DefaultUserInfo)userInfo;
-		UserInfo found = manager.find(DefaultUserInfo.class, dui.getId());
-
-		if (found != null) {
-			manager.remove(userInfo);
-		} else {
-			throw new IllegalArgumentException();
-		}
-	}
-
-	@Override
-	@Transactional
-	public Collection<DefaultUserInfo> getAll() {
-		log.info("getAll");
-
-		TypedQuery<DefaultUserInfo> query = manager.createNamedQuery("DefaultUserInfo.getAll", DefaultUserInfo.class);
-
-		return query.getResultList();
+	public UserInfo getByEmailAddress(String arg0) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
