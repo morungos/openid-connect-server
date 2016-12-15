@@ -15,7 +15,7 @@
 		<maven.compiler.target>1.7</maven.compiler.target>
 		<spring.framework.version>4.1.9.RELEASE</spring.framework.version>
 		<spring.security.ldap.version>4.0.2.RELEASE</spring.security.ldap.version>
-        <hsqldb.version>2.3.2</hsqldb.version>
+        <hsqldb.version>2.3.4</hsqldb.version>
         <mitreid.version>1.2.6</mitreid.version>
 	</properties>
 
