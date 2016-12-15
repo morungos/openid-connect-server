@@ -4,7 +4,7 @@
 
 	<groupId>ca.uhnresearch.pughlab</groupId>
 	<artifactId>openid-connect-server</artifactId>
-	<version>1.0.2</version>
+	<version>1.1.0</version>
 	<packaging>war</packaging>
 
 	<name>OpenID Connect Server</name>
@@ -13,16 +13,17 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.7</maven.compiler.source>
 		<maven.compiler.target>1.7</maven.compiler.target>
-		<spring.framework.version>3.2.13.RELEASE</spring.framework.version>
+		<spring.framework.version>4.1.9.RELEASE</spring.framework.version>
 		<spring.security.ldap.version>4.0.2.RELEASE</spring.security.ldap.version>
         <hsqldb.version>2.3.2</hsqldb.version>
+        <mitreid.version>1.2.6</mitreid.version>
 	</properties>
 
 	<dependencies>
 		<dependency>
 			<groupId>org.mitre</groupId>
 			<artifactId>openid-connect-common</artifactId>
-			<version>1.1.16</version>
+			<version>${mitreid.version}</version>
 			<type>jar</type>
 			<exclusions>
 				<exclusion>
@@ -58,7 +59,7 @@
 		<dependency>
 			<groupId>org.mitre</groupId>
 			<artifactId>openid-connect-server-webapp</artifactId>
-			<version>1.1.16</version>
+			<version>${mitreid.version}</version>
 			<type>war</type>
 			<scope>runtime</scope>
 			<exclusions>
@@ -76,7 +77,15 @@
 			<exclusions>
 				<exclusion>
 					<groupId>org.springframework</groupId>
-					<artifactId>*</artifactId>
+					<artifactId>spring-core</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-context</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-beans</artifactId>
 				</exclusion>
 			</exclusions>
 		</dependency>
@@ -91,9 +100,21 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.16</version>
-        </dependency>       
-                 
+        </dependency>
+                     
 	</dependencies>
+	
+        <dependencyManagement>
+	        <dependencies>
+	            <dependency>
+	                <groupId>org.mitre</groupId>
+	                <artifactId>openid-connect-parent</artifactId>
+	                <type>pom</type>
+	                <scope>import</scope>
+	                <version>${mitreid.version}</version>
+	            </dependency>
+	        </dependencies>
+  	    </dependencyManagement>  
 
 	<build>
 		<plugins>
