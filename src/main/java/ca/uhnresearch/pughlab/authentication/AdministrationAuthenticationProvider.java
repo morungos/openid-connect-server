@@ -1,12 +1,13 @@
 package ca.uhnresearch.pughlab.authentication;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
 public class AdministrationAuthenticationProvider implements AuthenticationProvider {
@@ -27,7 +28,10 @@ public class AdministrationAuthenticationProvider implements AuthenticationProvi
          
         if (username.equals(name) && BCrypt.checkpw(password, hash)) {
             // use the credentials and authenticate against the third-party system
-            return new UsernamePasswordAuthenticationToken(name, password, new ArrayList<GrantedAuthority>());
+        	List<SimpleGrantedAuthority> authorities = new ArrayList<SimpleGrantedAuthority>();
+        	authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+        	authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+            return new UsernamePasswordAuthenticationToken(name, password, authorities);
         } else {
             return null;
         }
