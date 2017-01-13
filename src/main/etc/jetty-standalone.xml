@@ -85,7 +85,7 @@
     </Call>
 
     <Call name="setWar">
-      <Arg>target/openid-connect-server-1.1.0.war</Arg>
+      <Arg>target/openid-connect-server-1.1.0-RC2.war</Arg>
     </Call>
 
     <!-- Add the JSP initializer -->
