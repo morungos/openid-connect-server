@@ -30,28 +30,27 @@
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
 
-	<bean id="propertyPlaceholderConfigurer"
-	    class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-	    <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
-	    <property name="searchSystemEnvironment" value="true" />
-	</bean>
+    <bean id="propertyPlaceholderConfigurer"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+        <property name="searchSystemEnvironment" value="true" />
+    </bean>
 
-	<bean id="ldapContextMapper" class="ca.uhnresearch.pughlab.authentication.LdapAccountContextMapper">
+	  <bean id="ldapContextMapper" class="ca.uhnresearch.pughlab.authentication.LdapAccountContextMapper">
         <property name="userAuthoritiesMapper" ref="userAuthoritiesMapper" />
     </bean>
-    
+
     <!-- This bean allows individual usernames to be set up as admin users. It's a useful technique when
          rights need to be assigned outside whatever we get back from LDAP/AD. However, it's probably better
          to use a traditional GrantedAuthoritiesMapper on each LdapAuthenticationProvider. -->
-         
+
     <bean id="userAuthoritiesMapper" class="ca.uhnresearch.pughlab.authentication.SimpleUserGrantedAuthoritiesMapper">
         <property name="adminUserList" value="${OIDC_ADMIN_USERS}" />
     </bean>
 
     <bean id="customAuthoritiesMapper" class="ca.uhnresearch.pughlab.authentication.CustomAuthoritiesMapper"></bean>
 
-	<bean id="ldapUserInfoRepository" primary="true" class="ca.uhnresearch.pughlab.authentication.LdapUserInfoRepository">
-	</bean>
+	  <bean id="ldapUserInfoRepository" primary="true" class="ca.uhnresearch.pughlab.authentication.LdapUserInfoRepository"></bean>
 
 	<!-- end LDAP -->
 
@@ -62,7 +61,9 @@
 	</security:http>
 
 	<security:http disable-url-rewriting="true" use-expressions="true">
-		<security:form-login login-page="/login" authentication-failure-url="/login?error=failure" authentication-success-handler-ref="authenticationTimeStamper" />
+		<security:form-login login-page="/login"
+                         authentication-failure-url="/login?error=failure"
+                         authentication-success-handler-ref="authenticationTimeStamper" />
 		<security:intercept-url pattern="/authorize" access="hasRole('ROLE_USER')" />
 		<security:intercept-url pattern="/**" access="permitAll" />
 		<security:custom-filter ref="authRequestFilter" after="SECURITY_CONTEXT_FILTER" />
