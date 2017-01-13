@@ -16,19 +16,19 @@
   limitations under the License.
 -->
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:oauth2="http://www.springframework.org/schema/security/oauth2"
-	xmlns:p="http://www.springframework.org/schema/p"
-	xmlns:security="http://www.springframework.org/schema/security"
-	xmlns:tx="http://www.springframework.org/schema/tx"
-	xmlns:util="http://www.springframework.org/schema/util"
-	xmlns:mvc="http://www.springframework.org/schema/mvc"
-	xsi:schemaLocation="http://www.springframework.org/schema/security/oauth2 http://www.springframework.org/schema/security/spring-security-oauth2.xsd
-		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
-		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
-		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd
-		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:oauth2="http://www.springframework.org/schema/security/oauth2"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/security/oauth2    http://www.springframework.org/schema/security/spring-security-oauth2.xsd
+          http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+          http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd
+          http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+          http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd
+          http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
 
     <bean id="propertyPlaceholderConfigurer"
           class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
@@ -36,7 +36,7 @@
         <property name="searchSystemEnvironment" value="true" />
     </bean>
 
-	  <bean id="ldapContextMapper" class="ca.uhnresearch.pughlab.authentication.LdapAccountContextMapper">
+    <bean id="ldapContextMapper" class="ca.uhnresearch.pughlab.authentication.LdapAccountContextMapper">
         <property name="userAuthoritiesMapper" ref="userAuthoritiesMapper" />
     </bean>
 
@@ -44,35 +44,38 @@
          rights need to be assigned outside whatever we get back from LDAP/AD. However, it's probably better
          to use a traditional GrantedAuthoritiesMapper on each LdapAuthenticationProvider. -->
 
-    <bean id="userAuthoritiesMapper" class="ca.uhnresearch.pughlab.authentication.SimpleUserGrantedAuthoritiesMapper">
+    <bean id="userAuthoritiesMapper"
+          class="ca.uhnresearch.pughlab.authentication.SimpleUserGrantedAuthoritiesMapper">
         <property name="adminUserList" value="${OIDC_ADMIN_USERS}" />
     </bean>
 
-    <bean id="customAuthoritiesMapper" class="ca.uhnresearch.pughlab.authentication.CustomAuthoritiesMapper"></bean>
+    <bean id="customAuthoritiesMapper"
+          class="ca.uhnresearch.pughlab.authentication.CustomAuthoritiesMapper"></bean>
 
-	  <bean id="ldapUserInfoRepository" primary="true" class="ca.uhnresearch.pughlab.authentication.LdapUserInfoRepository"></bean>
+    <bean id="ldapUserInfoRepository" primary="true"
+          class="ca.uhnresearch.pughlab.authentication.LdapUserInfoRepository"></bean>
 
-	<!-- end LDAP -->
+  <!-- end LDAP -->
 
-	<mvc:view-controller path="/login" view-name="login" />
+  <mvc:view-controller path="/login" view-name="login" />
 
-	<security:http pattern="/login**" use-expressions="true" entry-point-ref="http403EntryPoint">
-		<security:intercept-url pattern="/login**" access="permitAll"/>
-	</security:http>
+  <security:http pattern="/login**" use-expressions="true" entry-point-ref="http403EntryPoint">
+      <security:intercept-url pattern="/login**" access="permitAll"/>
+  </security:http>
 
-	<security:http disable-url-rewriting="true" use-expressions="true">
-		<security:form-login login-page="/login"
-                         authentication-failure-url="/login?error=failure"
-                         authentication-success-handler-ref="authenticationTimeStamper" />
-		<security:intercept-url pattern="/authorize" access="hasRole('ROLE_USER')" />
-		<security:intercept-url pattern="/**" access="permitAll" />
-		<security:custom-filter ref="authRequestFilter" after="SECURITY_CONTEXT_FILTER" />
-		<security:logout logout-url="/logout" />
-		<security:anonymous />
-		<security:expression-handler ref="oauthWebExpressionHandler" />
-		<security:headers>
-			<security:frame-options policy="DENY" />
-		</security:headers>
-	</security:http>
+  <security:http disable-url-rewriting="true" use-expressions="true">
+      <security:form-login login-page="/login"
+                           authentication-failure-url="/login?error=failure"
+                           authentication-success-handler-ref="authenticationTimeStamper" />
+      <security:intercept-url pattern="/authorize" access="hasRole('ROLE_USER')" />
+      <security:intercept-url pattern="/**" access="permitAll" />
+      <security:custom-filter ref="authRequestFilter" after="SECURITY_CONTEXT_FILTER" />
+      <security:logout logout-url="/logout" />
+      <security:anonymous />
+      <security:expression-handler ref="oauthWebExpressionHandler" />
+      <security:headers>
+          <security:frame-options policy="DENY" />
+      </security:headers>
+  </security:http>
 
 </beans>
