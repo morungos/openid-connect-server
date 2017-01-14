@@ -28,10 +28,16 @@ import org.springframework.transaction.annotation.Transactional;
  *
  */
 @Repository
-public class LdapUserInfoRepository implements UserInfoRepository {
+public class CustomUserInfoRepository implements UserInfoRepository {
 
-	private static final Logger log = LoggerFactory.getLogger(LdapUserInfoRepository.class);
+	private static final Logger log = LoggerFactory.getLogger(CustomUserInfoRepository.class);
 
+	private String adminPrincipal = null;
+	private String adminMail = null;
+	private String adminDisplayName = null;
+	private String adminGivenName = null;
+	private String adminFamilyName = null;
+	
 	@PersistenceContext
 	private EntityManager manager;
 	
@@ -75,6 +81,15 @@ public class LdapUserInfoRepository implements UserInfoRepository {
 
 				return ui;
 			}
+		} else if (principal instanceof String && ((String)principal).equals(adminPrincipal)) {
+			UserInfo ui = new DefaultUserInfo();
+			ui.setPreferredUsername(adminPrincipal);
+			ui.setSub(adminPrincipal);
+			ui.setEmail(adminMail);
+			ui.setName(adminDisplayName);
+			ui.setGivenName(adminGivenName);
+			ui.setFamilyName(adminFamilyName);
+			return ui;
 		}
 		throw new IllegalArgumentException("User not found: " + username);			
 	}
@@ -131,6 +146,54 @@ public class LdapUserInfoRepository implements UserInfoRepository {
 	public UserInfo getByEmailAddress(String arg0) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public String getAdminPrincipal() {
+		return adminPrincipal;
+	}
+
+	public void setAdminPrincipal(String adminPrincipal) {
+		this.adminPrincipal = adminPrincipal;
+	}
+
+	public String getAdminMail() {
+		return adminMail;
+	}
+
+	public void setAdminMail(String adminMail) {
+		this.adminMail = adminMail;
+	}
+
+	public String getAdminDisplayName() {
+		return adminDisplayName;
+	}
+
+	public void setAdminDisplayName(String adminDisplayName) {
+		this.adminDisplayName = adminDisplayName;
+	}
+
+	public String getAdminGivenName() {
+		return adminGivenName;
+	}
+
+	public void setAdminGivenName(String adminGivenName) {
+		this.adminGivenName = adminGivenName;
+	}
+
+	public String getAdminFamilyName() {
+		return adminFamilyName;
+	}
+
+	public void setAdminFamilyName(String adminFamilyName) {
+		this.adminFamilyName = adminFamilyName;
+	}
+
+	public EntityManager getManager() {
+		return manager;
+	}
+
+	public void setManager(EntityManager manager) {
+		this.manager = manager;
 	}
 
 }

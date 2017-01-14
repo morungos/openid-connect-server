@@ -52,8 +52,14 @@
   <bean id="customAuthoritiesMapper"
         class="ca.uhnresearch.pughlab.authentication.CustomAuthoritiesMapper"></bean>
 
-  <bean id="ldapUserInfoRepository" primary="true"
-        class="ca.uhnresearch.pughlab.authentication.LdapUserInfoRepository"></bean>
+  <bean id="userInfoRepository" primary="true"
+        class="ca.uhnresearch.pughlab.authentication.CustomUserInfoRepository">
+    <property name="adminPrincipal" value="admin" />
+    <property name="adminMail" value="" />
+    <property name="adminDisplayName" value="Stuart Watt" />
+    <property name="adminGivenName" value="Stuart" />
+    <property name="adminFamilyName" value="Watt" />
+  </bean>
 
   <!-- end LDAP -->
 
