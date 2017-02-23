@@ -18,7 +18,7 @@
   </bean>
 
   <bean id="researchAuthProvider"
-        class="org.springframework.security.ldap.authentication.ad.ActiveDirectoryLdapAuthenticationProvider">
+        class="org.springframework.security.ldap.authentication.ad.CustomLdapAuthenticationProvider">
     <constructor-arg value="ads.uhnresearch.ca" />
     <constructor-arg value="ldap://192.168.198.100" />
     <property name="userDetailsContextMapper" ref="ldapContextMapper" />
