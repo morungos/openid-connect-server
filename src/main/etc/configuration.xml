@@ -1,35 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:security="http://www.springframework.org/schema/security"
-	xsi:schemaLocation="
-	    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
-		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:security="http://www.springframework.org/schema/security"
+  xsi:schemaLocation="
+      http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+    http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 
-	<bean id="configBean" class="org.mitre.openid.connect.config.ConfigurationPropertiesBean">
-		<property name="issuer" value="http://localhost:8080/" />
- 		<property name="logoImageUrl" value="resources/images/full_uhn_logo.png" />
- 		<property name="topbarTitle" value="UHN OpenID Connect Server" />
-	</bean>
-	
-    <bean id="userAuthoritiesMapper" class="ca.uhnresearch.pughlab.authentication.SimpleUserGrantedAuthoritiesMapper">
-        <property name="adminUserList" value="stuartw" />
-    </bean>
+  <bean id="configBean" class="org.mitre.openid.connect.config.ConfigurationPropertiesBean">
+    <property name="issuer" value="http://localhost:8080/" />
+    <property name="logoImageUrl" value="resources/images/full_uhn_logo.png" />
+    <property name="topbarTitle" value="UHN OpenID Connect Server" />
+  </bean>
 
-	<bean id="researchAuthProvider" class="org.springframework.security.ldap.authentication.ad.ActiveDirectoryLdapAuthenticationProvider">
-		<constructor-arg value="ads.uhnresearch.ca" />
-		<constructor-arg value="ldap://192.168.198.100" />
-		<property name="userDetailsContextMapper" ref="ldapContextMapper" />
-	</bean>
+  <bean id="userAuthoritiesMapper"
+        class="ca.uhnresearch.pughlab.authentication.SimpleUserGrantedAuthoritiesMapper">
+    <property name="adminUserList" value="stuartw" />
+  </bean>
 
-	<bean id="adminAuthProvider" class="ca.uhnresearch.pughlab.authentication.AdministrationAuthenticationProvider">
-		<constructor-arg value="stuart" />
-		<constructor-arg value="$2a$05$Zweqp6D1/x8hH0VDbHTrWuJiVmcRxGrK3ImO5S53OV7aeTgrwK6Wm" />
-	</bean>
+  <bean id="researchAuthProvider"
+        class="org.springframework.security.ldap.authentication.ad.CustomLdapAuthenticationProvider">
+    <constructor-arg value="ads.uhnresearch.ca" />
+    <constructor-arg value="ldap://192.168.198.100" />
+    <property name="userDetailsContextMapper" ref="ldapContextMapper" />
+  </bean>
 
-	<security:authentication-manager alias="authenticationManager">
-        <security:authentication-provider ref="adminAuthProvider" />
-        <security:authentication-provider ref="researchAuthProvider" />
-    </security:authentication-manager>
-    
+  <bean id="adminAuthProvider"
+        class="ca.uhnresearch.pughlab.authentication.AdministrationAuthenticationProvider">
+    <constructor-arg value="stuart" />
+    <constructor-arg value="$2a$05$Zweqp6D1/x8hH0VDbHTrWuJiVmcRxGrK3ImO5S53OV7aeTgrwK6Wm" />
+  </bean>
+
+  <security:authentication-manager alias="authenticationManager">
+    <security:authentication-provider ref="adminAuthProvider" />
+    <security:authentication-provider ref="researchAuthProvider" />
+  </security:authentication-manager>
+
 </beans>

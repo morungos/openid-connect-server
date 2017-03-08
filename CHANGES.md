@@ -1,6 +1,18 @@
 ## Revision history
 
 
+### Version 1.1.0-RC3 - March 7th 2017
+
+ * Added a CustomLdapAuthenticationProvider, which enables 
+   searchFilter to be set
+
+
+### Version 1.1.0-RC2 - January 13th 2017
+
+ * Corrected DB persistence of large strings
+ * Amended the repository to generate user info
+
+
 ### Version 1.1.0-RC1 - December 15th 2016
 
  * Added support for a non-LDAP externalizable admin user
@@ -22,4 +34,3 @@
 
  * Initial Java package
  * Allow the admin users to be externalized
- 
