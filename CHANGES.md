@@ -1,6 +1,12 @@
 ## Revision history
 
 
+### Version 1.1.0-RC3 - March 7th 2017
+
+ * Added a CustomLdapAuthenticationProvider, which enables 
+   searchFilter to be set
+
+
 ### Version 1.1.0-RC2 - January 13th 2017
 
  * Corrected DB persistence of large strings
