@@ -104,17 +104,17 @@
 
     </dependencies>
 
-        <dependencyManagement>
-            <dependencies>
-                <dependency>
-                    <groupId>org.mitre</groupId>
-                    <artifactId>openid-connect-parent</artifactId>
-                    <type>pom</type>
-                    <scope>import</scope>
-                    <version>${mitreid.version}</version>
-                </dependency>
-            </dependencies>
-          </dependencyManagement>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.mitre</groupId>
+                <artifactId>openid-connect-parent</artifactId>
+                <type>pom</type>
+                <scope>import</scope>
+                <version>${mitreid.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
         <plugins>
@@ -148,8 +148,8 @@
                 <version>9.2.9.v20150224</version>
                 <configuration>
                     <webApp>
-                           <contextPath>/</contextPath>
-                         <allowDuplicateFragmentNames>true</allowDuplicateFragmentNames>
+                        <contextPath>/</contextPath>
+                        <allowDuplicateFragmentNames>true</allowDuplicateFragmentNames>
                     </webApp>
                     <webXml>src/main/webapp/WEB-INF/web.xml</webXml>
                     <jettyXml>src/main/etc/jetty.xml,src/main/etc/jetty-webapp.xml</jettyXml>
