@@ -1,7 +1,5 @@
 package ca.uhnresearch.pughlab.authentication;
 
-import java.util.Collection;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
