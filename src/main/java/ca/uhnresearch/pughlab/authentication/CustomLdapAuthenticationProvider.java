@@ -363,6 +363,9 @@ public final class CustomLdapAuthenticationProvider extends
         if (domain == null || username.toLowerCase().endsWith(domain)) {
             return username;
         }
+        
+        if (username.contains("@"))
+        	return username;
 
         return username + "@" + domain;
     }
