@@ -1,9 +1,15 @@
 ## Revision history
 
 
+### Version 1.1.0-RC4 - March 9th 2017
+
+ * Fixed a small issue with usernames that contain a domain.
+   See #8
+
+
 ### Version 1.1.0-RC3 - March 7th 2017
 
- * Added a CustomLdapAuthenticationProvider, which enables 
+ * Added a CustomLdapAuthenticationProvider, which enables
    searchFilter to be set
 
 
